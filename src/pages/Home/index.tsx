@@ -46,12 +46,12 @@ const Home = (): JSX.Element => {
   }, []);
 
   function handleAddProduct(id: number) {
-    // TODO
+    addProduct(id);
   }
 
   return (
     <ProductList>
-      {products.map(({ id, image, price, priceFormatted, title }) => (
+      {products.map(({ id, image, priceFormatted, title }) => (
         <li key={id}>
           <img src={image} alt={title} />
           <strong>{title}</strong>
@@ -59,7 +59,7 @@ const Home = (): JSX.Element => {
           <button
             type="button"
             data-testid="add-product-button"
-            // onClick={() => handleAddProduct(product.id)}
+            onClick={() => handleAddProduct(id)}
           >
             <div data-testid="cart-product-quantity">
               <MdAddShoppingCart size={16} color="#FFF" />
