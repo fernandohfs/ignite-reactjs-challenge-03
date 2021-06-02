@@ -210,7 +210,7 @@ describe('useCart Hook', () => {
 
     apiMock.onGet(`stock/${productId}`).reply(200, {
       id: 2,
-      amount: 0,
+      amount: 1,
     });
     apiMock.onGet(`products/${productId}`).reply(200, {
       id: 2,

@@ -36,14 +36,14 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     try {
       const { data: stock } = await api.get<Stock>(`/stock/${productId}`);
 
-      if (stock.amount < 1) {
-        toast.error('Quantidade solicitada fora de estoque');
-        return;
-      }
-
       const productAdded = cart.find(product => productId === product.id);
 
       if (productAdded) {
+        if (stock.amount <= productAdded.amount) {
+          toast.error('Quantidade solicitada fora de estoque');
+          return;
+        }
+
         const updatedCart = cart.map(product => {
           if (productAdded.id === product.id) {
             return {
@@ -63,6 +63,11 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
           amount: stock.amount - 1
         });
 
+        return;
+      }
+
+      if (stock.amount < 1) {
+        toast.error('Quantidade solicitada fora de estoque');
         return;
       }
 
