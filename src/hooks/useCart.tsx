@@ -149,22 +149,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     }
   };
 
-  const updateProductAmountInStock = async (
-    productId: number,
-    type: 'increment' | 'decrement'): Promise<void> => {
-    try {
-      const { data: stock } = await api.get<Stock>(`/stock/${productId}`);
-
-      const newAmount = type === 'increment' ? stock.amount + 1 : stock.amount - 1;
-
-      await api.patch(`/stock/${productId}`, {
-        amount: newAmount
-      });
-    } catch {
-      toast.error('Erro ao decrementar a quantidade do produto no estoque');
-    }
-  }
-
   return (
     <CartContext.Provider
       value={{ cart, addProduct, removeProduct, updateProductAmount }}
